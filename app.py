@@ -7,27 +7,40 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from io import StringIO
 from joblib import load
-from scipy.sparse import csr_matrix
-word_net = WordNetLemmatizer()
-
-stop_words=set(stopwords.words('english'))
-
-stop_words=stop_words.difference({'not'})
+import json
+import scipy.sparse as sp
+from sklearn.feature_extraction.text import TfidfVectorizer
 with open('lr','rb') as f:
     lr=pk.load(f)
 with open('rf','rb') as f:
     rf=pk.load(f)
 with open('mnb','rb') as f:
     mnb=pk.load(f)
-with open('tfidf','rb') as f:
-    tfidf=pk.load(f)
-# lr=load('lr')
-# rf=load('rf')
-# mnb=load('mnb.joblib')
-# tfidf=load('tfidf.joblib')
+with open('tfidf.pkl','rb') as f:
+    vectorizer=pk.load(f)
+with open('vocabulary.json','r') as f:
+    vocabulary=json.load(f)
+
+# class MyVectorizer(TfidfVectorizer):
+#     # plug our pre-computed IDFs
+#     TfidfVectorizer.idf_ = idf
+#     TfidfVectorizer.vocabulary_ = vocabulary
+#     # TfidfVectorizer._tfidf._idf_diag=sp.spdiags(idf,diags=0,m=len(idf),n=len(idf))
+
+# # instantiate vectorizer
+# vectorizer = MyVectorizer()
+
+
+
+word_net = WordNetLemmatizer()
+
+stop_words=set(stopwords.words('english'))
+
+stop_words=stop_words.difference({'not'})
+
 st.title('Emotion Classifier')
 
-st.header('Input the text and it will tell the emotion of tyhe text')
+st.header('Input the text and it will tell the emotion of the text')
 
 text=st.text_area(label='Write here')
 contractions = { 
@@ -201,7 +214,7 @@ data=('text\n''hello')
 df=pd.read_csv(StringIO(data),index_col=False)
 df.loc[0]['text']=text
 df['text']=df['text'].apply(lambda x:clean(x))
-X=tfidf.transform(df['text'])
+X=vectorizer.transform(df['text']).toarray()
 
 pred1=rf.predict(X)
 pred2=lr.predict(X)
