@@ -209,4 +209,4 @@ output=lr.predict(X)
 
 
 if st.button('Predict'):
-    st.write(output)
+    st.write(output[0])
