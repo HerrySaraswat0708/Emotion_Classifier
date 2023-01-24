@@ -13,13 +13,15 @@ with open('lr.joblib','rb') as f:
     lr=load(f)
 with open('stop_words.joblib','rb') as f:
     stop_words=load(f)
+with open('word_net.joblib','rb') as f:
+    word_net=load(f)
 with open('Tfidf.joblib','rb') as f:
     vectorizer=load(f)
 
 
 
 
-word_net = WordNetLemmatizer()
+
 
 
 stop_words=stop_words.difference({'not'})
