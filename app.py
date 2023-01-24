@@ -17,15 +17,6 @@ with open('Tfidf.joblib','rb') as f:
     vectorizer=load(f)
 
 
-# class MyVectorizer(TfidfVectorizer):
-#     # plug our pre-computed IDFs
-#     TfidfVectorizer.idf_ = idf
-#     TfidfVectorizer.vocabulary_ = vocabulary
-#     # TfidfVectorizer._tfidf._idf_diag=sp.spdiags(idf,diags=0,m=len(idf),n=len(idf))
-
-# # instantiate vectorizer
-# vectorizer = MyVectorizer()
-
 
 
 word_net = WordNetLemmatizer()
