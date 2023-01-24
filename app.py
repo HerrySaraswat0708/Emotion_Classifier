@@ -10,16 +10,12 @@ from joblib import load
 import json
 import scipy.sparse as sp
 from sklearn.feature_extraction.text import TfidfVectorizer
-with open('lr','rb') as f:
-    lr=pk.load(f)
-with open('rf','rb') as f:
-    rf=pk.load(f)
-with open('mnb','rb') as f:
-    mnb=pk.load(f)
-with open('tfidf.pkl','rb') as f:
-    vectorizer=pk.load(f)
-with open('vocabulary.json','r') as f:
-    vocabulary=json.load(f)
+with open('lr.joblib','rb') as f:
+    lr=load(f)
+
+with open('Tfidf.joblib','rb') as f:
+    vectorizer=load(f)
+
 
 # class MyVectorizer(TfidfVectorizer):
 #     # plug our pre-computed IDFs
@@ -216,13 +212,9 @@ df.loc[0]['text']=text
 df['text']=df['text'].apply(lambda x:clean(x))
 X=vectorizer.transform(df['text']).toarray()
 
-pred1=rf.predict(X)
-pred2=lr.predict(X)
-pred3=mnb.predict(X)
 
-lst = [pred1[0],pred2[0],pred3[0]]
+output=lr.predict(X)
 
-output=max(set(lst),key=lst.count)
 
 if st.button('Predict'):
     st.write(output)
