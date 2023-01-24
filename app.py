@@ -3,7 +3,7 @@ import pandas as pd
 import regex as reg
 import numpy as np
 import nltk
-
+nltk.download('wordnet')
 from io import StringIO
 from joblib import load
 from sklearn.feature_extraction.text import TfidfVectorizer
