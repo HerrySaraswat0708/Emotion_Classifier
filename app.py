@@ -3,7 +3,6 @@ import pandas as pd
 import regex as reg
 import numpy as np
 import nltk
-from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from io import StringIO
 from joblib import load
@@ -12,7 +11,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 with open('lr.joblib','rb') as f:
     lr=load(f)
-
+with open('stop_words.joblib','rb') as f:
+    stop_words=load(f)
 with open('Tfidf.joblib','rb') as f:
     vectorizer=load(f)
 
@@ -21,7 +21,6 @@ with open('Tfidf.joblib','rb') as f:
 
 word_net = WordNetLemmatizer()
 
-stop_words=set(stopwords.words('english'))
 
 stop_words=stop_words.difference({'not'})
 
