@@ -1,6 +1,9 @@
 streamlit
 pandas
 numpy
+scikit-learn
+io
+nltk
 regex
 pickle
 scipy
