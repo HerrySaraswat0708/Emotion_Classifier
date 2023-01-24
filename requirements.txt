@@ -4,5 +4,4 @@ numpy
 regex
 joblib
 nltk
-io
 scikit-learn
