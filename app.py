@@ -1,15 +1,15 @@
 import streamlit as st
 import pandas as pd
-import pickle as pk
 import regex as reg
 import numpy as np
+import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from io import StringIO
 from joblib import load
-import json
-import scipy.sparse as sp
 from sklearn.feature_extraction.text import TfidfVectorizer
+
+
 with open('lr.joblib','rb') as f:
     lr=load(f)
 
